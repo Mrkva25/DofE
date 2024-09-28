@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kácov</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .tab-container {
+            background-color: white;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        .tab-buttons {
+            display: flex;
+            background-color: #498e91;
+        }
+        .tab-button {
+            background-color: inherit;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+            color: white;
+        }
+        .tab-button:hover {
+            background-color: #376A6D;
+        }
+        .tab-button.active {
+            background-color: #376A6D;
+        }
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border-top: none;
+        }
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .image-container img {
+            width: 24%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .image-container img:hover {
+            opacity: 0.7;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+        }
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+        }
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .nav-button {
+            color: white;
+            font-size: 30px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+        .prev { left: 20px; 
+        }
+        .next { right: 20px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="tab-container">
+        <div class="tab-buttons">
+            <button class="tab-button" onclick="openTab(event, 'Den2')">Fotografie z řeky</button>
+
+        </div>
+
+        <div id="Den2" class="tab-content">
+            <h2>Druhý den</h2>
+            <div class="image-container">
+                <img src="photos/2. den/DSCN6072.JPG" onclick="expandImage(this)">
+                <img src="photos/2. den/DSCN6076.JPG" onclick="expandImage(this)">
+                <img src="photos/2. den/DSCN6082.JPG" onclick="expandImage(this)">
+                <img src="photos/2. den/DSCN6089.JPG" onclick="expandImage(this)">
+                <img src="photos/2. den/DSCN6093.JPG" onclick="expandImage(this)">
+                <img src="photos/2. den/DSCN6096.JPG" onclick="expandImage(this)">
+                <img src="photos/2. den/DSCN6102.JPG" onclick="expandImage(this)">
+                <img src="photos/2. den/DSCN6106.JPG" onclick="expandImage(this)">
+                <img src="photos/2. den/DSCN6111.JPG" onclick="expandImage(this)">
+                <img src="photos/2. den/DSCN6122.JPG" onclick="expandImage(this)">
+                <img src="photos/2. den/DSCN6133.JPG" onclick="expandImage(this)">
+                <img src="photos/2. den/DSCN6146.JPG" onclick="expandImage(this)">
+                <img src="photos/2. den/IMG_0080.jpeg" onclick="expandImage(this)">
+                <img src="photos/2. den/IMG_0081.jpeg" onclick="expandImage(this)">
+                <img src="photos/2. den/IMG_0113.JPG" onclick="expandImage(this)">
+                <img src="photos/2. den/IMG_0174.JPG" onclick="expandImage(this)">
+                <img src="photos/2. den/IMG_0181.JPG" onclick="expandImage(this)">
+                <img src="photos/2. den/IMG_0113.JPG" onclick="expandImage(this)">
+                <img src="photos/2. den/IMG_0174.JPG" onclick="expandImage(this)">
+                <img src="photos/2. den/IMG_0181.JPG" onclick="expandImage(this)">
+                <img src="photos/2. den/IMG_0333.JPG" onclick="expandImage(this)">
+                <img src="photos/2. den/IMG_0339.JPG" onclick="expandImage(this)">
+                <img src="photos/2. den/IMG_0361.JPG" onclick="expandImage(this)">
+                <img src="photos/2. den/IMG_0362.JPG" onclick="expandImage(this)">
+                <img src="photos/2. den/IMG_3367.heic" onclick="expandImage(this)">
+                <img src="photos/2. den/IMG_3375.heic" onclick="expandImage(this)">
+            </div>
+        </div>
+    </div>
+
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <a class="nav-button prev" onclick="changeImage(-1)">&#10094;</a>
+        <a class="nav-button next" onclick="changeImage(1)">&#10095;</a>
+        <img class="modal-content" id="expandedImage">
+    </div>
+
+    <script>
+        let currentImageIndex = 0;
+        let currentImages = [];
+
+        function openTab(evt, tabName) {
+            var i, tabContent, tabButtons;
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].style.display = "none";
+            }
+            tabButtons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+            
+            // Update currentImages when changing tabs
+            currentImages = Array.from(document.querySelector(`#${tabName} .image-container`).getElementsByTagName('img'));
+        }
+
+        function expandImage(img) {
+            var modal = document.getElementById("imageModal");
+            var modalImg = document.getElementById("expandedImage");
+            modal.style.display = "block";
+            modalImg.src = img.src;
+            currentImageIndex = currentImages.indexOf(img);
+        }
+
+        function closeModal() {
+            document.getElementById("imageModal").style.display = "none";
+        }
+
+        function changeImage(step) {
+            currentImageIndex += step;
+            if (currentImageIndex >= currentImages.length) {
+                currentImageIndex = 0;
+            } else if (currentImageIndex < 0) {
+                currentImageIndex = currentImages.length - 1;
+            }
+            document.getElementById("expandedImage").src = currentImages[currentImageIndex].src;
+        }
+
+        // Open the first tab by default
+        document.getElementsByClassName("tab-button")[0].click();
+    </script>
+</body>
+</html>

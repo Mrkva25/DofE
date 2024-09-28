@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rataje nad Sázavou</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .tab-container {
+            background-color: white;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .tab-buttons {
+            display: flex;
+            background-color: #498e91;
+        }
+        .tab-button {
+            background-color: inherit;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+            color: white;
+        }
+        .tab-button:hover {
+            background-color: #376A6D;
+        }
+        .tab-button.active {
+            background-color: #376A6D;
+        }
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border-top: none;
+        }
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .image-container img {
+            width: 24%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .image-container img:hover {
+            opacity: 0.7;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+        }
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+        }
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .nav-button {
+            color: white;
+            font-size: 30px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+        .prev { left: 20px; 
+        }
+        .next { right: 20px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="tab-container">
+        <div class="tab-buttons">
+            <button class="tab-button" onclick="openTab(event, 'Pirkstejn')">Pirkštejn</button>
+            <button class="tab-button" onclick="openTab(event, 'Rataje')">Zámek</button>
+            <button class="tab-button" onclick="openTab(event, 'Kostel-Matous')">Kostel</button>
+            <button class="tab-button" onclick="openTab(event, 'Mesto')">Město</button>
+        </div>
+
+        <div id="Pirkstejn" class="tab-content">
+            <h2>Hrad Pirkštejn</h2>
+            <p>Vystavěn ve 14. století Jindřichem z Lipé</p>
+            <div class="image-container">
+                <img src="photos/Rataje/Pirkstejn/IMG_0066.JPG" onclick="expandImage(this)">
+                <img src="photos/Rataje/Pirkstejn/IMG_0300.JPG" onclick="expandImage(this)">
+                <img src="photos/Rataje/Pirkstejn/IMG_0352.JPG" onclick="expandImage(this)">
+                <img src="photos/Rataje/Pirkstejn/IMG_0374.JPG" onclick="expandImage(this)">
+            </div>
+        </div>
+
+        <div id="Rataje" class="tab-content">
+            <h2>Zámek Rataje nad Sázavou</h2>
+            <p>Tento hrad byl postaven ve 13. století Jindřichem z Lipé. V 16. století byl přestavěn na renesanční zámek a kolem roku 1672 byl barokně upraven. V zámku sídlí Muzeum středního Posázaví, ale také místní pošta, informační centrum a místní knihovna.</p>
+            <div class="image-container">
+                <img src="photos/Rataje/Zamek-Rataje/IMG_0043.JPG" onclick="expandImage(this)">
+                <img src="photos/Rataje/Zamek-Rataje/IMG_0046.JPG" onclick="expandImage(this)">
+                <img src="photos/Rataje/Zamek-Rataje/IMG_0049.JPG" onclick="expandImage(this)">
+                <img src="photos/Rataje/Zamek-Rataje/IMG_0050.JPG" onclick="expandImage(this)">
+                <img src="photos/Rataje/Zamek-Rataje/IMG_0070.JPG" onclick="expandImage(this)">
+                <img src="photos/Rataje/Zamek-Rataje/IMG_0116.JPG" onclick="expandImage(this)">
+                <img src="photos/Rataje/Zamek-Rataje/IMG_0173.JPG" onclick="expandImage(this)">
+                <img src="photos/Rataje/Zamek-Rataje/IMG_0202.JPG" onclick="expandImage(this)">
+                <img src="photos/Rataje/Zamek-Rataje/IMG_3404.heic" onclick="expandImage(this)">
+            </div>
+        </div>
+
+        <div id="Kostel-Matous" class="tab-content">
+            <h2>Kostel svatého Matouše</h2>
+            <p>Kostel postaven v 17. stojí v místech dvou původních kostelů - románského a mladší rotundy. Nynější kostel je příkladé raně barokní architektury od italského stavitele a architekta Andrease de Quarda.</p>
+            <div class="image-container">
+                <img src="photos/Rataje/Kostel-Matous/IMG_0085.JPG" onclick="expandImage(this)">
+                <img src="photos/Rataje/Kostel-Matous/IMG_0190.JPG" onclick="expandImage(this)">
+                <img src="photos/Rataje/Kostel-Matous/IMG_3401.heic" onclick="expandImage(this)">
+                <img src="photos/Rataje/Kostel-Matous/IMG_3402.heic" onclick="expandImage(this)">
+            </div>
+        </div>
+
+        <div id="Mesto" class="tab-content">
+            <h2>Ostatní krásy Ratají</h2>
+            <div class="image-container">
+                <img src="photos/Rataje/Město/IMG_0023.JPG" onclick="expandImage(this)">
+                <img src="photos/Rataje/Město/IMG_0047.JPG" onclick="expandImage(this)">
+                <img src="photos/Rataje/Město/IMG_0069.JPG" onclick="expandImage(this)">
+                <img src="photos/Rataje/Město/IMG_0110.JPG" onclick="expandImage(this)">
+                <img src="photos/Rataje/Město/IMG_0296.JPG" onclick="expandImage(this)">
+                <img src="photos/Rataje/Město/IMG_0297.JPG" onclick="expandImage(this)">
+                <img src="photos/Rataje/Město/IMG_0330.JPG" onclick="expandImage(this)">
+                <img src="photos/Rataje/Město/IMG_0346 (1).JPG" onclick="expandImage(this)">
+                <img src="photos/Rataje/Město/IMG_3400.heic" onclick="expandImage(this)">
+                <img src="photos/Rataje/IMG_0358.JPG" onclick="expandImage(this)">
+            </div>
+        </div>
+    </div>
+
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <a class="nav-button prev" onclick="changeImage(-1)">&#10094;</a>
+        <a class="nav-button next" onclick="changeImage(1)">&#10095;</a>
+        <img class="modal-content" id="expandedImage">
+    </div>
+
+    <script>
+        let currentImageIndex = 0;
+        let currentImages = [];
+
+        function openTab(evt, tabName) {
+            var i, tabContent, tabButtons;
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].style.display = "none";
+            }
+            tabButtons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+            
+            // Update currentImages when changing tabs
+            currentImages = Array.from(document.querySelector(`#${tabName} .image-container`).getElementsByTagName('img'));
+        }
+
+        function expandImage(img) {
+            var modal = document.getElementById("imageModal");
+            var modalImg = document.getElementById("expandedImage");
+            modal.style.display = "block";
+            modalImg.src = img.src;
+            currentImageIndex = currentImages.indexOf(img);
+        }
+
+        function closeModal() {
+            document.getElementById("imageModal").style.display = "none";
+        }
+
+        function changeImage(step) {
+            currentImageIndex += step;
+            if (currentImageIndex >= currentImages.length) {
+                currentImageIndex = 0;
+            } else if (currentImageIndex < 0) {
+                currentImageIndex = currentImages.length - 1;
+            }
+            document.getElementById("expandedImage").src = currentImages[currentImageIndex].src;
+        }
+
+        // Open the first tab by default
+        document.getElementsByClassName("tab-button")[0].click();
+    </script>
+</body>
+</html>

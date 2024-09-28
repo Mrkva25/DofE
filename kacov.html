@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kácov</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .tab-container {
+            background-color: white;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        .tab-buttons {
+            display: flex;
+            background-color: #498e91;
+        }
+        .tab-button {
+            background-color: inherit;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+            color: white;
+        }
+        .tab-button:hover {
+            background-color: #376A6D;
+        }
+        .tab-button.active {
+            background-color: #376A6D;
+        }
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border-top: none;
+        }
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .image-container img {
+            width: 24%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .image-container img:hover {
+            opacity: 0.7;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+        }
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+        }
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .nav-button {
+            color: white;
+            font-size: 30px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+        .prev { left: 20px; 
+        }
+        .next { right: 20px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="tab-container">
+        <div class="tab-buttons">
+            <button class="tab-button" onclick="openTab(event, 'Pivovar')">Pivovar</button>
+            <button class="tab-button" onclick="openTab(event, 'Zamek')">Zámek</button>
+            <button class="tab-button" onclick="openTab(event, 'Kostel')">Kostel</button>
+            <button class="tab-button" onclick="openTab(event, 'Mesto')">Město</button>
+        </div>
+
+        <div id="Pivovar" class="tab-content">
+            <h2>Pivovar Kácov</h2>
+            <p>Jeden z nejstarších českých pivovarů, založen v roce 1457. Patří společnosti Pivovar Hubertus.</p>
+            <p><strong>Zajímavost:</strong> V roce 2011 se odehrál velký pivní podvod, v rámci nějž putovalo do distribuce 33 tisíc litrů kácovského piva.</p>
+            <div class="image-container">
+                <img src="photos/Kácov/Pivovar/IMG_0099.jpeg" onclick="expandImage(this)">
+                <img src="photos/Kácov/Pivovar/IMG_0327.JPG" onclick="expandImage(this)">
+            </div>
+        </div>
+
+        <div id="Zamek" class="tab-content">
+            <h2>Zámek Kácov</h2>
+            <p>Barokní zámek vystavěn na místě někdejší tvrze z poloviny 15. století. Momentálně je v soukromém vlastnictví a už od roku 2018 na něm probíhají rozsáhlé rekonstrukce.</p>
+            <div class="image-container">
+                <img src="photos/Kácov/Zamek/IMG_0118.JPG" onclick="expandImage(this)">
+                <img src="photos/Kácov/Zamek/IMG_0298.jpeg" onclick="expandImage(this)">
+                <img src="photos/Kácov/Zamek/IMG_0338.jpeg" onclick="expandImage(this)">
+                <img src="photos/Kácov/Zamek/IMG_0346.JPG" onclick="expandImage(this)">
+                <img src="photos/Kácov/Zamek/IMG_0370.jpeg" onclick="expandImage(this)">
+            </div>
+        </div>
+
+        <div id="Kostel" class="tab-content">
+            <h2>Kostel Narození Panny Marie</h2>
+            <p>Neslohový trojlodní kostel s hranolovou věží, vznikl kolem roku 1352. Je součástí zámeckého komplexu, se zámkem propojen 60 metrů dlouhou funkční chodbou.</p>
+            <div class="image-container">
+                <img src="photos/Kácov/Kostel/IMG_0305.jpeg" onclick="expandImage(this)">
+                <img src="photos/Kácov/Kostel/IMG_0342.jpeg" onclick="expandImage(this)">
+                <img src="photos/Kácov/Kostel/IMG_0359.jpeg" onclick="expandImage(this)">
+                <img src="photos/Kácov/Kostel/IMG_0376.jpeg" onclick="expandImage(this)">
+            </div>
+        </div>
+
+        <div id="Mesto" class="tab-content">
+            <h2>Ostatní krásy Kácova</h2>
+            <p>Město Kácov</p>
+            <div class="image-container">
+                <img src="photos/Kácov/Mesto/IMG_0061.jpeg" onclick="expandImage(this)">
+                <img src="photos/Kácov/Mesto/IMG_0291.jpeg" onclick="expandImage(this)">
+                <img src="photos/Kácov/Mesto/IMG_0321.jpeg" onclick="expandImage(this)">
+                <img src="photos/Kácov/Mesto/IMG_0331.jpeg" onclick="expandImage(this)">
+                <img src="photos/Kácov/Mesto/IMG_3364.jpeg" onclick="expandImage(this)">
+                <img src="photos/Kácov/Mesto/IMG_3365.jpeg" onclick="expandImage(this)">
+            </div>
+        </div>
+    </div>
+
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <a class="nav-button prev" onclick="changeImage(-1)">&#10094;</a>
+        <a class="nav-button next" onclick="changeImage(1)">&#10095;</a>
+        <img class="modal-content" id="expandedImage">
+    </div>
+
+    <script>
+        let currentImageIndex = 0;
+        let currentImages = [];
+
+        function openTab(evt, tabName) {
+            var i, tabContent, tabButtons;
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].style.display = "none";
+            }
+            tabButtons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+            
+            // Update currentImages when changing tabs
+            currentImages = Array.from(document.querySelector(`#${tabName} .image-container`).getElementsByTagName('img'));
+        }
+
+        function expandImage(img) {
+            var modal = document.getElementById("imageModal");
+            var modalImg = document.getElementById("expandedImage");
+            modal.style.display = "block";
+            modalImg.src = img.src;
+            currentImageIndex = currentImages.indexOf(img);
+        }
+
+        function closeModal() {
+            document.getElementById("imageModal").style.display = "none";
+        }
+
+        function changeImage(step) {
+            currentImageIndex += step;
+            if (currentImageIndex >= currentImages.length) {
+                currentImageIndex = 0;
+            } else if (currentImageIndex < 0) {
+                currentImageIndex = currentImages.length - 1;
+            }
+            document.getElementById("expandedImage").src = currentImages[currentImageIndex].src;
+        }
+
+        // Open the first tab by default
+        document.getElementsByClassName("tab-button")[0].click();
+    </script>
+</body>
+</html>
