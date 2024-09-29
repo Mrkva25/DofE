@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ostrá expedice DofE - Sázava</title>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #e1eff0;
+        }
+
+        .map-wrapper {
+            position: relative;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .map-wrapper img {
+            display: block;
+            max-width: 100%;
+            max-height: 100vh;
+            width: auto;
+            height: auto;
+        }
+
+        .clickable-area {
+            position: absolute;
+            width: 60px;
+            height: 52px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            background-color: transparent;
+            transition: background-color 0.3s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="map-container">
+        <div class="map-wrapper">
+            <img src="https://mrkva25.github.io/DofE/Sazava2.png" alt="Mapa Sázavy">
+            <a href="rataje.html" class="clickable-area" style="left: 45%; top: 13%;" title="Rataje nad Sázavou"></a>
+            <a href="3den.html" class="clickable-area" style="left: 35%; top: 21%;" title="3. den"></a>
+            <a href="sternberk.html" class="clickable-area" style="left: 33%; top: 38%;" title="Český Šternberk"></a>
+            <a href="kacov.html" class="clickable-area" style="left: 62%; top: 65%;" title="Kácov"></a>
+            <a href="1den.html" class="clickable-area" style="left: 72%; top: 96%;" title="1. den"></a>
+            <a href="zruc.html" class="clickable-area" style="left: 84%; top: 94%;" title="Zruč nad Sázavou"></a>
+            <a href="2den.html" class="clickable-area" style="left: 50%; top: 57%;" title="2. den"></a>
+        </div>
+    </div>
+</body>
+
+</html>
